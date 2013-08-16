@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -13,13 +13,21 @@ $(document).ready(function(){
   // convert
   $("#convert").click(function() {
       var json = $.parseJSON($("#json").val());
-      var csv = json2csv(json);
+      var opts = {
+        "header" : $("#labels").is(':checked'),
+        "quote" : $("#quote").is(':checked')
+      };
+      var csv = json2csv(json, opts);
       $("#csv").val(csv);
   });
   // download
   $("#download").click(function() {
       var json = $.parseJSON($("#json").val());
-      var csv = json2csv(json);
+      var opts = {
+    	        "header" : $("#labels").is(':checked'),
+    	        "quote" : $("#quote").is(':checked')
+    	      };
+      var csv = json2csv(json, opts);
       //
       var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
       $a = $('<a id="downloadcsv"></a>').attr('href',uri).attr('download',"data.csv").appendTo('body');
