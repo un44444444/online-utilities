@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,base64,base64encode"/>
+  <meta name="keywords" content="online utilities,base64,base64encode"/>
+  <title>Base64Encode - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/base64.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+  // convert
+  $("#convert").click(function() {
+	  $("#base64encode").val( Base64.encode($("#content").val()) );
+  });
+});
+</script>
+</head>
+<body>
+  <div>
+<h1>Base64Encode</h1>
+  </div>
+  <div>
+    <p>Paste Your Content Here:</p>
+    <textarea id="content" class="text">http://chen-w.com/online-utilities/</textarea>
+  </div>
+  <div>
+    <button id="convert">Process base64encode()</button>
+    <br />
+    <textarea id="base64encode" class="text"></textarea>
+  </div>
+</body>
+</html>

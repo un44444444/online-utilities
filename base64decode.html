@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,base64,base64decode"/>
+  <meta name="keywords" content="online utilities,base64,base64decode"/>
+  <title>Base64Decode - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/base64.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+  // convert
+  $("#convert").click(function() {
+	  $("#base64decode").val( Base64.decode($("#content").val()) );
+  });
+});
+</script>
+</head>
+<body>
+  <div>
+<h1>Base64Decode</h1>
+  </div>
+  <div>
+    <p>Paste Your Base64 String Here:</p>
+    <textarea id="content" class="text">aHR0cDovL2NoZW4tdy5jb20vb25saW5lLXV0aWxpdGllcy8=</textarea>
+  </div>
+  <div>
+    <button id="convert">Process base64decode()</button>
+    <br />
+    <textarea id="base64decode" class="text"></textarea>
+  </div>
+</body>
+</html>
