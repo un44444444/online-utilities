@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,URL,urlencode"/>
+  <meta name="keywords" content="online utilities,URL,urlencode"/>
+  <title>UrlEncode - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+  // encodeURI
+  $("#encodeURI").click(function() {
+	  $("#urlencode").val( encodeURI($("#content").val()) );
+  });
+  // encodeURIComponent
+  $("#encodeURIComponent").click(function() {
+	  $("#urlencode").val( encodeURIComponent($("#content").val()) );
+  });
+});
+</script>
+</head>
+<body>
+  <div>
+<h1>UrlEncode</h1>
+  </div>
+  <div>
+    <p>Paste Your URL Here:</p>
+    <textarea id="content" class="text">http://chen-w.com/online-utilities/1 + 2 = 3</textarea>
+  </div>
+  <div>
+    <button id="encodeURI">Process encodeURI()</button>&nbsp;&nbsp;
+    <button id="encodeURIComponent">Process encodeURIComponent()</button>
+    <br />
+    <textarea id="urlencode" class="text"></textarea>
+  </div>
+</body>
+</html>
