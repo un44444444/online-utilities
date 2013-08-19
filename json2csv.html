@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta name="description" content="online utilities,json,cvs"/>
   <meta name="keywords" content="online utilities,json,cvs"/>
   <title>Json to CSV - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
   <script type="text/javascript" src="js/json2csv.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
@@ -42,27 +44,27 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-  <div>
-<h1>Json to CSV</h1>
-  </div>
-  <div>
-    <p>Paste Your JSON Here:</p>
-    <textarea id="json" class="text">[{"Id":1,"UserName":"Sam Smith"},
+<div data-role="page">
+  <div data-role="header">
+    <h1>Json to CSV</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="json">Paste Your JSON Here:</label>
+    <textarea id="json" name="json" class="text1">[{"Id":1,"UserName":"Sam Smith"},
 {"Id":2,"UserName":"Fred Frankly"},
 {"Id":1,"UserName":"Zachary Zupers"}]</textarea>
-  </div>
-  <div>
-    <input id="quote" type="checkbox" checked="checked" /> Wrap values in double quotes
+    <input id="quote" type="checkbox" checked="checked" /> <label for="quote">Wrap values in double quotes</label>
     <br />
-    <input id="labels" type="checkbox" checked="checked" /> Include labels in first row
+    <input id="labels" type="checkbox" checked="checked" /> <label for="labels">Include labels in first row</label>
     <br />
     <button id="convert">Convert to CSV</button>&nbsp;&nbsp;
     <button id="download">Download CSV</button>
     <br />
-    <textarea id="csv" class="text"></textarea>
-  </div>
-  <div>
+    <textarea id="csv" class="text1"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a>
-  </div>
+  </div><!-- /footer -->
+</div><!-- /page -->
 </body>
 </html>
