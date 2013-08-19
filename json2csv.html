@@ -24,9 +24,9 @@ $(document).ready(function(){
   $("#download").click(function() {
       var json = $.parseJSON($("#json").val());
       var opts = {
-    	        "header" : $("#labels").is(':checked'),
-    	        "quote" : $("#quote").is(':checked')
-    	      };
+        "header" : $("#labels").is(':checked'),
+        "quote" : $("#quote").is(':checked')
+      };
       var csv = json2csv(json, opts);
       //
       var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
@@ -60,6 +60,9 @@ $(document).ready(function(){
     <button id="download">Download CSV</button>
     <br />
     <textarea id="csv" class="text"></textarea>
+  </div>
+  <div>
+    See also: <a href="index.html">Online Utilities</a>
   </div>
 </body>
 </html>
