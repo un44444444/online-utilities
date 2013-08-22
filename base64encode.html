@@ -6,32 +6,34 @@
   <meta name="keywords" content="online utilities,base64,base64encode"/>
   <title>Base64Encode - online utilities</title>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="js/base64.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
-  // convert
-  $("#convert").click(function() {
-	  $("#base64encode").val( Base64.encode($("#content").val()) );
-  });
+    // convert
+    $("#base64encode_convert").on('click', function() {
+        $("#base64encode_result").val( Base64.encode($("#base64encode_content").val()) );
+        $("#base64encode_result").trigger('keyup');
+    });
 });
 </script>
 </head>
 <body>
-  <div>
-<h1>Base64Encode</h1>
-  </div>
-  <div>
-    <p>Paste Your Content Here:</p>
-    <textarea id="content" class="text">http://chen-w.com/online-utilities/</textarea>
-  </div>
-  <div>
-    <button id="convert">Process base64encode()</button>
+<div id="base64encode" data-role="page">
+  <div data-role="header">
+    <h1>Base64Encode</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="base64encode_content">Paste Your Content Here:</label>
+    <textarea id="base64encode_content" class="text">http://chen-w.com/online-utilities/</textarea>
     <br />
-    <textarea id="base64encode" class="text"></textarea>
-  </div>
-  <div>
+    <button id="base64encode_convert" data-role="button" data-inline="true">Process base64encode()</button>
+    <br />
+    <textarea id="base64encode_result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a> &gt; <a href="base64decode.html">Base64Decode</a>
-  </div>
+  </div><!-- /footer -->
+</div><!-- /page -->
 </body>
 </html>

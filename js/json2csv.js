@@ -5,8 +5,8 @@ function json2csv(objArray, opts) {
         "quote" : true
     };
     for(var key in opts)
-    	if(opts.hasOwnProperty(key))
-    		options[key] = opts[key]
+        if(opts.hasOwnProperty(key))
+            options[key] = opts[key]
 
     var str = '';
     var line = '';

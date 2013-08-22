@@ -6,36 +6,39 @@
   <meta name="keywords" content="online utilities,URL,urlencode"/>
   <title>UrlEncode - online utilities</title>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
-  // encodeURI
-  $("#encodeURI").click(function() {
-	  $("#urlencode").val( encodeURI($("#content").val()) );
-  });
-  // encodeURIComponent
-  $("#encodeURIComponent").click(function() {
-	  $("#urlencode").val( encodeURIComponent($("#content").val()) );
-  });
+    // encodeURI
+    $("#urlencode_encodeURI").click(function() {
+        $("#urlencode_result").val( encodeURI($("#urlencode_content").val()) );
+        $("#urlencode_result").trigger('keyup');
+    });
+    // encodeURIComponent
+    $("#urlencode_encodeURIComponent").click(function() {
+        $("#urlencode_result").val( encodeURIComponent($("#urlencode_content").val()) );
+        $("#urlencode_result").trigger('keyup');
+    });
 });
 </script>
 </head>
 <body>
-  <div>
-<h1>UrlEncode</h1>
-  </div>
-  <div>
-    <p>Paste Your URL Here:</p>
-    <textarea id="content" class="text">http://chen-w.com/online-utilities/1 + 2 = 3</textarea>
-  </div>
-  <div>
-    <button id="encodeURI">Process encodeURI()</button>&nbsp;&nbsp;
-    <button id="encodeURIComponent">Process encodeURIComponent()</button>
+<div id="urlencode" data-role="page">
+  <div data-role="header">
+    <h1>UrlEncode</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="urlencode_content">Paste Your URL Here:</label>
+    <textarea id="urlencode_content" class="text">http://chen-w.com/online-utilities/1 + 2 = 3</textarea>
     <br />
-    <textarea id="urlencode" class="text"></textarea>
-  </div>
-  <div>
+    <button id="urlencode_encodeURI" data-role="button" data-inline="true">Process encodeURI()</button>&nbsp;&nbsp;
+    <button id="urlencode_encodeURIComponent" data-role="button" data-inline="true">Process encodeURIComponent()</button>
+    <br />
+    <textarea id="urlencode_result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a> &gt; <a href="urldecode.html">UrlDecode</a>
-  </div>
+  </div><!-- /footer -->
+</div><!-- /page -->
 </body>
 </html>

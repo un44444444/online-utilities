@@ -6,31 +6,33 @@
   <meta name="keywords" content="online utilities,URL,urldecode"/>
   <title>UrlDecode - online utilities</title>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
-  // convert
-  $("#convert").click(function() {
-	  $("#urldecode").val( decodeURIComponent($("#content").val()) );
-  });
+    // convert
+    $("#urldecode_convert").click(function() {
+        $("#urldecode_result").val( decodeURIComponent($("#urldecode_content").val()) );
+        $("#urldecode_result").trigger('keyup');
+    });
 });
 </script>
 </head>
 <body>
-  <div>
-<h1>UrlDecode</h1>
-  </div>
-  <div>
-    <p>Paste Your URL Here:</p>
-    <textarea id="content" class="text">http%3A%2F%2Fchen-w.com%2Fonline-utilities%2F1%20%2B%202%20%3D%203</textarea>
-  </div>
-  <div>
-    <button id="convert">Process decodeURIComponent()</button>
+<div id="urldecode" data-role="page">
+  <div data-role="header">
+    <h1>UrlDecode</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="urldecode_content">Paste Your URL Here:</label>
+    <textarea id="urldecode_content" class="text">http%3A%2F%2Fchen-w.com%2Fonline-utilities%2F1%20%2B%202%20%3D%203</textarea>
     <br />
-    <textarea id="urldecode" class="text"></textarea>
-  </div>
-  <div>
+    <button id="urldecode_convert" data-role="button" data-inline="true">Process decodeURIComponent()</button>
+    <br />
+    <textarea id="urldecode_result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a> &gt; <a href="urlencode.html">UrlEncode</a>
-  </div>
+  </div><!-- /footer -->
+</div><!-- /page -->
 </body>
 </html>

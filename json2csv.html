@@ -5,62 +5,63 @@
   <meta name="description" content="online utilities,json,cvs"/>
   <meta name="keywords" content="online utilities,json,cvs"/>
   <title>Json to CSV - online utilities</title>
-  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
   <script type="text/javascript" src="js/json2csv.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
-  // convert
-  $("#convert").click(function() {
-      var json = $.parseJSON($("#json").val());
-      var opts = {
-        "header" : $("#labels").is(':checked'),
-        "quote" : $("#quote").is(':checked')
-      };
-      var csv = json2csv(json, opts);
-      $("#csv").val(csv);
-  });
-  // download
-  $("#download").click(function() {
-      var json = $.parseJSON($("#json").val());
-      var opts = {
-        "header" : $("#labels").is(':checked'),
-        "quote" : $("#quote").is(':checked')
-      };
-      var csv = json2csv(json, opts);
-      //
-      var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
-      $a = $('<a id="downloadcsv"></a>').attr('href',uri).attr('download',"data.csv").appendTo('body');
-      if (typeof($('#downloadcsv').get(0).click) === 'function') {
-        $('#downloadcsv').get(0).click();
-      } else {
-        window.open(uri);
-      }
-      $('#downloadcsv').remove();
-  });
+    // convert
+    $("#json2csv_convert").click(function() {
+        var json = $.parseJSON($("#json2csv_json").val());
+        var opts = {
+          "header" : $("#json2csv_labels").is(':checked'),
+          "quote" : $("#json2csv_quote").is(':checked')
+        };
+        var csv = json2csv(json, opts);
+        $("#json2csv_csv").val(csv);
+        //$("#json2csv_csv").trigger('propertychange');
+        $("#json2csv_csv").trigger('keyup');
+    });
+    // download
+    $("#json2csv_download").click(function() {
+        var json = $.parseJSON($("#json2csv_json").val());
+        var opts = {
+          "header" : $("#json2csv_labels").is(':checked'),
+          "quote" : $("#json2csv_quote").is(':checked')
+        };
+        var csv = json2csv(json, opts);
+        //
+        var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+        $a = $('<a id="downloadcsv"></a>').attr('href',uri).attr('download',"data.csv").appendTo('body');
+        if (typeof($('#downloadcsv').get(0).click) === 'function') {
+          $('#downloadcsv').get(0).click();
+        } else {
+          window.open(uri);
+        }
+        $('#downloadcsv').remove();
+    });
 });
 </script>
 </head>
 <body>
-<div data-role="page">
+<div id="json2csv" data-role="page">
   <div data-role="header">
     <h1>Json to CSV</h1>
   </div><!-- /header -->
   <div data-role="content">
-    <label for="json">Paste Your JSON Here:</label>
-    <textarea id="json" name="json" class="text1">[{"Id":1,"UserName":"Sam Smith"},
+    <label for="json2csv_json">Paste Your JSON Here:</label>
+    <textarea id="json2csv_json" class="text">[{"Id":1,"UserName":"Sam Smith"},
 {"Id":2,"UserName":"Fred Frankly"},
 {"Id":1,"UserName":"Zachary Zupers"}]</textarea>
-    <input id="quote" type="checkbox" checked="checked" /> <label for="quote">Wrap values in double quotes</label>
     <br />
-    <input id="labels" type="checkbox" checked="checked" /> <label for="labels">Include labels in first row</label>
+    <input id="json2csv_quote" type="checkbox" checked="checked" /> <label for="quote">Wrap values in double quotes</label>
     <br />
-    <button id="convert">Convert to CSV</button>&nbsp;&nbsp;
-    <button id="download">Download CSV</button>
+    <input id="json2csv_labels" type="checkbox" checked="checked" /> <label for="labels">Include labels in first row</label>
     <br />
-    <textarea id="csv" class="text1"></textarea>
+    <button id="json2csv_convert" data-role="button" data-inline="true">Convert to CSV</button>&nbsp;&nbsp;
+    <button id="json2csv_download" data-role="button" data-inline="true">Download CSV</button>
+    <br />
+    <textarea id="json2csv_csv" class="text"></textarea>
   </div><!-- /content -->
   <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a>

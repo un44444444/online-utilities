@@ -6,32 +6,34 @@
   <meta name="keywords" content="online utilities,base64,base64decode"/>
   <title>Base64Decode - online utilities</title>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="js/base64.js"></script>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
-  // convert
-  $("#convert").click(function() {
-	  $("#base64decode").val( Base64.decode($("#content").val()) );
-  });
+    // convert
+    $("#base64decode_convert").on('click', function() {
+        $("#base64decode_result").val( Base64.decode($("#base64decode_content").val()) );
+        $("#base64decode_result").trigger('keyup');
+    });
 });
 </script>
 </head>
 <body>
-  <div>
-<h1>Base64Decode</h1>
-  </div>
-  <div>
-    <p>Paste Your Base64 String Here:</p>
-    <textarea id="content" class="text">aHR0cDovL2NoZW4tdy5jb20vb25saW5lLXV0aWxpdGllcy8=</textarea>
-  </div>
-  <div>
-    <button id="convert">Process base64decode()</button>
+<div id="base64decode" data-role="page">
+  <div data-role="header">
+    <h1>Base64Decode</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="base64decode_content">Paste Your Base64 String Here:</label>
+    <textarea id="base64decode_content" class="text">aHR0cDovL2NoZW4tdy5jb20vb25saW5lLXV0aWxpdGllcy8=</textarea>
     <br />
-    <textarea id="base64decode" class="text"></textarea>
-  </div>
-  <div>
+    <button id="base64decode_convert" data-role="button" data-inline="true">Process base64decode()</button>
+    <br />
+    <textarea id="base64decode_result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
     See also: <a href="index.html">Online Utilities</a> &gt; <a href="base64encode.html">Base64Encode</a>
-  </div>
+  </div><!-- /footer -->
+</div><!-- /page -->
 </body>
 </html>
