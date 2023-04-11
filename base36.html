@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,URL,urldecode"/>
+  <meta name="keywords" content="online utilities,URL,urldecode"/>
+  <title>Base36 - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+var dict = '0123456789abcdefghijklmnopqrstuvwxyz';
+var dictLen = dict.length;
+function toBase36(num) {
+    let arr = [];
+    while (num > 0) {
+        arr.push(dict[num % dictLen]);
+        num = Math.floor(num / dictLen);
+    }
+    //数组反转，因为个位在索引0的位置，应反过来显示
+    return arr.reverse().join('');
+}
+$(document).ready(function(){
+    // convert
+    $("#decimal_convert").click(function() {
+        $("#urldecode_result").val( toBase36(parseInt($("#decimal_content").val())) );
+        $("#urldecode_result").trigger('keyup');
+    });
+});
+</script>
+</head>
+<body>
+<div id="urldecode" data-role="page">
+  <div data-role="header">
+    <h1>decimal-to-base36 conversion</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="decimal_content">Paste number Here:</label>
+    <textarea id="decimal_content" class="text">112233445566</textarea>
+    <br />
+    <button id="decimal_convert" data-role="button" data-inline="true">Process base36()</button>
+    <br />
+    <textarea id="urldecode_result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
+    See also: <a href="index.html">Online Utilities</a> &gt; <a href="base62.html">Base62</a>
+  </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>
