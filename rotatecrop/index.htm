@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>图片旋转并裁剪</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<style type="text/css">
+		body{
+			padding:0;
+			margin:0;
+		}
+		.container{
+			position: absolute;
+			top: 200px;
+			left: 20px;
+			width: 800px;
+			height: 480px;
+			background-image: url(https://img1.baidu.com/it/u=3952426525,1957751298&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500);
+		}
+		.box{
+			width: 200px;
+			height: 350px;
+			top: 20px;
+			left: 20px;
+			border: 1px solid #f00;
+			position: absolute;
+			box-sizing: border-box;
+			transform-origin: 50% 50%;
+		}
+		.box1{
+			background-color: #00aa00;
+			background-image: url(https://picnew6.photophoto.cn/20111208/jingmeishuiguojihetupian-16934807_1.jpg);
+			background-size:100% 100%;
+		}
+		.tip{
+			width: 20px;
+			height: 20px;
+			background: #00f;
+			position: absolute;
+		}
+		.control{
+			margin-top:  30px;
+			margin-left: 50px;
+		}
+	</style>
+    <div class="container">
+      <div class="box box1"></div>
+      <div class="tip tip1"></div>
+      <div class="tip tip2"></div>
+      <div class="tip tip3"></div>
+      <div class="tip tip4"></div>
+    </div>
+    <div class="control">
+    	<p>ps: 请在支持es6语法的浏览器中运行</p>
+    	旋转：<span class="label">0' </span>
+    	<input type="range" value="0" min="0" max="360" step="1" id="range">
+    </div>
+    <script type="text/javascript" src="transform.js"></script>
+    <script type="text/javascript" src="SutherlandHodgman.js"></script>
+    <script type="text/javascript" src="transpoint.js"></script>
+		<script type="text/javascript">
+			var box = document.querySelector(".box"),
+				tip1 = document.querySelector(".tip1"),
+				tip2 = document.querySelector(".tip2"),
+				tip3 = document.querySelector(".tip3"),
+				tip4 = document.querySelector(".tip4"),
+				range = document.querySelector("#range"),
+				label = document.querySelector(".label");
+			var options = {
+				x: box.offsetLeft,
+				y: box.offsetTop,
+				width: box.offsetWidth,
+				height: box.offsetHeight
+			};
+			console.log('options=', options);
+			function rotate(angle) {
+				box.style.cssText = `transform: rotate(${angle}deg)`;
+				var transformed = transform(options, angle);
+				console.log("transformed=", transformed);
+				console.log("transformed.point=", JSON.stringify(transformed.point));
+				/*
+				//const {topLeft, topRight, bottomLeft, bottomRight} = transformed.point;
+				const centerPoint = {x:120,y:195};
+				//const centerPoint = {x:220,y:195};
+				const topLeft = transpoint({x:20,y:20}, centerPoint, angle, 1);
+				const topRight = transpoint({x:220,y:20}, centerPoint, angle, 2);
+				const bottomRight = transpoint({x:220,y:370}, centerPoint, angle, 3);
+				const bottomLeft = transpoint({x:20,y:370}, centerPoint, angle, 4);
+				console.log("transpoint() topLeft=", topLeft);
+				console.log("transpoint() topRight=", topRight);
+				console.log("transpoint() bottomRight=", bottomRight);
+				console.log("transpoint() bottomLeft=", bottomLeft);
+				*/
+const centerPoint = {x:100,y:175};
+const topLeft = transpoint({x:-20,y:-20}, centerPoint, 360 - angle, 1);
+const topRight = transpoint({x:780,y:-20}, centerPoint, 360 - angle, 2);
+const bottomRight = transpoint({x:780,y:460}, centerPoint, 360 - angle, 3);
+const bottomLeft = transpoint({x:-20,y:460}, centerPoint, 360 - angle, 4);
+				tip1.style.left = topLeft.x + 'px';
+				tip1.style.top = topLeft.y + 'px';
+				tip2.style.left = topRight.x + 'px';
+				tip2.style.top = topRight.y + 'px';
+				tip3.style.left = bottomLeft.x + 'px';
+				tip3.style.top = bottomLeft.y + 'px';
+				tip4.style.left = bottomRight.x + 'px';
+				tip4.style.top = bottomRight.y + 'px';
+			}
+			function testSutherlandHodgman(angle) {
+// 先计算旋转后外层坐标
+/*
+var outerContainer = {
+	x: -20,
+	y: -20,
+	width: 800,
+	height: 480
+};
+var outerTransformed = transform(outerContainer, 360 - angle);
+console.log("outerTransformed",outerTransformed);
+console.log("outerTransformed.point=", JSON.stringify(outerTransformed.point));
+const {topLeft, topRight, bottomLeft, bottomRight} = outerTransformed.point;
+*/
+const centerPoint = {x:100,y:175};
+const topLeft = transpoint({x:-20,y:-20}, centerPoint, 360 - angle, 1);
+const topRight = transpoint({x:780,y:-20}, centerPoint, 360 - angle, 2);
+const bottomRight = transpoint({x:780,y:460}, centerPoint, 360 - angle, 3);
+const bottomLeft = transpoint({x:-20,y:460}, centerPoint, 360 - angle, 4);
+// 再计算裁剪
+var pointList = new Array();
+    pointList.push(new Point(0, 0));
+    pointList.push(new Point(200, 0));
+    pointList.push(new Point(200, 350));
+    pointList.push(new Point(0, 350));
+    pointList.push(new Point(0, 0));
+          
+var edgeList = new Array();
+    edgeList.push(new edge(new Point(topLeft.x, topLeft.y), new Point(topRight.x, topRight.y)));
+    edgeList.push(new edge(new Point(topRight.x, topRight.y), new Point(bottomRight.x, bottomRight.y)));
+    edgeList.push(new edge(new Point(bottomRight.x, bottomRight.y), new Point(bottomLeft.x, bottomLeft.y)));
+    edgeList.push(new edge(new Point(bottomLeft.x, bottomLeft.y), new Point(topLeft.x, topLeft.y)));
+var polygonPoints = Sutherland_Hodgman(pointList, edgeList);
+var clipPathStr = '';
+for (var i in polygonPoints) {
+    console.log(polygonPoints[i]);
+    clipPathStr += `${polygonPoints[i].x}px ${polygonPoints[i].y}px`;
+    if (i < polygonPoints.length-1) {
+        clipPathStr += ', ';
+    }
+}
+// box.style.clipPath = `polygon(10px 10px, 150px 150px, 50px 300px)`;
+console.log('clipPathStr=', clipPathStr);
+box.style.clipPath = `polygon(${clipPathStr})`;
+			}
+			range.addEventListener("change", function() {
+				label.innerHTML = `${range.value}'`;
+				rotate(range.value);
+				testSutherlandHodgman(range.value);
+			});
+			rotate(0);
+		</script>
+</body>
+</html>
