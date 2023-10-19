@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,URL,crc32"/>
+  <meta name="keywords" content="online utilities,URL,crc32"/>
+  <title>CRC32 - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/crc32.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+    // convert
+    $("#crc32convert").click(function() {
+        var sample_text = $("#crc32content").val();
+        var byte_array = sample_text.split('').map(function(x){return x.charCodeAt(0)});
+        var checksum = crc32(byte_array)
+        $("#crc32result").val( checksum );
+        $("#crc32result").trigger('keyup');
+    });
+});
+</script>
+</head>
+<body>
+<div id="crc32" data-role="page">
+  <div data-role="header">
+    <h1>CRC32</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="crc32content">Paste Your URL Here:</label>
+    <textarea id="crc32content" class="text">123456789</textarea>
+    <br />
+    <button id="crc32convert" data-role="button" data-inline="true">Process crc32()</button>
+    <br />
+    <textarea id="crc32result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
+    See also: <a href="index.html">Online Utilities</a> &gt; <a href="base64encode.html">Base64Encode</a>
+  </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>

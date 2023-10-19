@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name="description" content="online utilities,URL,crc8"/>
+  <meta name="keywords" content="online utilities,URL,crc8"/>
+  <title>CRC8 - online utilities</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/crc8.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+    var crc8 = new CRC8();
+    // convert
+    $("#crc8convert").click(function() {
+        var sample_text = $("#crc8content").val();
+        var byte_array = sample_text.split('').map(function(x){return x.charCodeAt(0)});
+        // var crc8 = new CRC8();
+        var checksum = crc8.checksum(byte_array)
+        $("#crc8result").val( checksum );
+        $("#crc8result").trigger('keyup');
+    });
+});
+</script>
+</head>
+<body>
+<div id="crc8" data-role="page">
+  <div data-role="header">
+    <h1>CRC8</h1>
+  </div><!-- /header -->
+  <div data-role="content">
+    <label for="crc8content">Paste Your URL Here:</label>
+    <textarea id="crc8content" class="text">123456789</textarea>
+    <br />
+    <button id="crc8convert" data-role="button" data-inline="true">Process crc8.checksum()</button>
+    <br />
+    <textarea id="crc8result" class="text"></textarea>
+  </div><!-- /content -->
+  <div data-role="footer">
+    See also: <a href="index.html">Online Utilities</a> &gt; <a href="base64encode.html">Base64Encode</a>
+  </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>
