@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import ToolLayout from '../layouts/ToolLayout.astro';
+
+// 工具组件注册表：新增工具时在下方加一行静态 import + 模板分支。
+//（必须静态导入并显式渲染 —— client: 水合指令要求组件标识符编译期可见，
+//   不能经由 Record/动态变量传递）
+import JsonFormatterTool from '../tools/json-formatter/tool.vue';
+import PasswordGeneratorTool from '../tools/password-generator/tool.vue';
+
+export async function getStaticPaths() {
+  const tools = await getCollection('tools');
+  return tools.map((entry) => ({
+    params: { tool: entry.data.path },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// 以目录名（如 json-formatter）匹配对应组件
+const dirName = entry.id.split('/')[0];
+
+// 相关工具推荐（meta.related 里存的是其他工具的 path）
+const all = await getCollection('tools');
+const related = entry.data.related
+  .map((p) => all.find((t) => t.data.path === p))
+  .filter((t) => t !== undefined)
+  .map((t) => ({ name: t.data.name, path: t.data.path, description: t.data.description }));
+---
+
+<ToolLayout name={entry.data.name} description={entry.data.description} path={entry.data.path} related={related}>
+  {dirName === 'json-formatter' && <JsonFormatterTool client:load />}
+  {dirName === 'password-generator' && <PasswordGeneratorTool client:load />}
+
+  <!-- markdown 内容：使用说明、隐私声明、教学长文 -->
+  <div class="prose-neutral mt-10 max-w-none [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:my-2 [&_p]:leading-7 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-2 [&_strong]:font-semibold">
+    <Content />
+  </div>
+</ToolLayout>

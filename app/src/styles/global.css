@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+/* class 策略的深色模式：html.dark 下 dark: 前缀生效 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  @apply bg-white text-neutral-800 dark:bg-neutral-950 dark:text-neutral-200 antialiased;
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-sky-500 rounded-sm;
+}

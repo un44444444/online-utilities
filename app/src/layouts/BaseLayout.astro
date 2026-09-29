@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.vue';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const siteName = '在线工具箱';
+const fullTitle = title === siteName ? title : `${title} - ${siteName}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- 首屏防深色闪烁：在渲染前应用主题偏好 -->
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="border-b border-neutral-200 dark:border-neutral-800">
+      <div class="mx-auto max-w-5xl px-4 h-14 flex items-center justify-between">
+        <a href="/" class="font-semibold text-lg hover:text-sky-600 dark:hover:text-sky-400">{siteName}</a>
+        <nav class="flex items-center gap-4 text-sm">
+          <a href="/privacy" class="hover:text-sky-600 dark:hover:text-sky-400">隐私说明</a>
+          <a href="/about" class="hover:text-sky-600 dark:hover:text-sky-400">关于</a>
+          <ThemeToggle client:load />
+        </nav>
+      </div>
+    </header>
+    <main class="flex-1 mx-auto w-full max-w-5xl px-4 py-8">
+      <slot />
+    </main>
+    <footer class="border-t border-neutral-200 dark:border-neutral-800 py-6 text-center text-sm text-neutral-500 dark:text-neutral-400">
+      所有工具均在您的浏览器本地运行，数据不会上传服务器。
+    </footer>
+  </body>
+</html>
